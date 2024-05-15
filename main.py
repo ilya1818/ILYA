@@ -15,7 +15,7 @@ class MainWindow(tk.Tk):  # Inherit from tk.Tk
         super().__init__()
         self.title("График функции y = ax^3")
         self.geometry("663x700")
-        self.version = '1.0.1'
+        self.version = '1.0.2'
 
         # Установка шрифта
         self.option_add("*Font", "Calibri 12")
@@ -65,7 +65,7 @@ class MainWindow(tk.Tk):  # Inherit from tk.Tk
         self.label_a = tk.Label(self, text="Значение a =", bg="gainsboro")
         self.edit_a = tk.Entry(self)
 
-        self.button_plot = tk.Button(self, text="Нарисовать график", command=self.plot_graph, bg="orange")
+        self.button_plot = tk.Button(self, text="Нарисовать график", command=self.plot_graph, bg="blue")
         self.button_clear = tk.Button(self, text="Очистить график", command=self.clear_graphs, bg="red")
 
         self.label_a.place(relx=0.3, rely=0.04, anchor=tk.CENTER)
