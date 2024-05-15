@@ -137,10 +137,9 @@ class MainWindow(tk.Tk):  # Inherit from tk.Tk
 
         self.figure_canvas.get_tk_widget().place(x=x_offset, y=y_offset)
 
-    @staticmethod
-    def show_about_dialog():
+    def show_about_dialog(self):
         messagebox.showinfo("О программе",
-                            f"График функции y = ax^3\nВерсия: 1.0.0\nАвтор: Илья\nКомпания: ILYA Company")
+                            f"График функции y = ax^3\nВерсия: {self.version}\nАвтор: Илья\nКомпания: ILYA Company")
 
     def clear_graphs(self):
         for line in self.axes.lines:
