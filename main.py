@@ -16,7 +16,7 @@ class MainWindow(tk.Tk):
         super().__init__()
         self.title("График функции y = ax^3")
         self.geometry("663x700")
-        self.current_version = "1.0.0"
+        self.current_version = "1.0.1"
 
         # Установка шрифта
         self.option_add("*Font", "Calibri 12")
@@ -87,7 +87,7 @@ class MainWindow(tk.Tk):
     @staticmethod
     def check_update(self):
         try:
-            response = requests.get('https://raw.githubusercontent.com/coolgromov/AvaBox/main/version.txt')
+            response = requests.get('https://raw.githubusercontent.com/ilya1818/ILYA/main/version.txt')
             if self.current_version == response.text:
                 messagebox.showinfo("Обновление ПО", "Программа не требует обновления")
                 return
@@ -100,7 +100,7 @@ class MainWindow(tk.Tk):
 
     def download_update(self):
         try:
-            response = requests.get('https://raw.githubusercontent.com/coolgromov/AvaBox/main/main.py')
+            response = requests.get('https://raw.githubusercontent.com/ilya1818/ILYA/main/main.py')
             with open('main.py', 'wb') as f:
                 f.write(response.content)
             messagebox.showinfo("Обновление ПО", "Программа успешно обновлена. Перезапустите приложение.")
