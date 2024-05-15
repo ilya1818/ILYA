@@ -10,13 +10,12 @@ import shutil
 import sys
 import tempfile
 
-class MainWindow(tk.Tk):
-
+class MainWindow(tk.Tk):  # Inherit from tk.Tk
     def __init__(self):
         super().__init__()
         self.title("График функции y = ax^3")
         self.geometry("663x700")
-        self.current_version = "1.0.1"
+        self.version = '1.0.0'
 
         # Установка шрифта
         self.option_add("*Font", "Calibri 12")
@@ -54,7 +53,7 @@ class MainWindow(tk.Tk):
 
         # Меню "Обновление ПО"
         self.update_menu = tk.Menu(self.menu_bar, tearoff=0)
-        self.update_menu.add_command(label="Проверить обновления", command=self.check_and_apply_update)
+        self.update_menu.add_command(label="Проверить обновления", command=self.check_update)
         self.menu_bar.add_cascade(label="Обновление ПО", menu=self.update_menu)
 
         # Установка созданного меню
@@ -80,19 +79,15 @@ class MainWindow(tk.Tk):
 
         self.loading_label.place(relx=0.5, rely=0.24, anchor=tk.CENTER)
 
-        # Событие при закрытии окна
-        self.protocol("WM_DELETE_WINDOW", self.on_closing)
-
-
-    @staticmethod
     def check_update(self):
         try:
             response = requests.get('https://raw.githubusercontent.com/ilya1818/ILYA/main/version.txt')
-            if self.current_version == response.text:
+            if self.version == response.text:
                 messagebox.showinfo("Обновление ПО", "Программа не требует обновления")
                 return
             else:
-                user_input = messagebox.askquestion("Обновление ПО", "Обнаружено обновление. Хотите обновить программу?")
+                user_input = messagebox.askquestion("Обновление ПО",
+                                                    "Обнаружено обновление. Хотите обновить программу?")
                 if user_input == "yes":
                     self.download_update()
         except requests.RequestException as e:
@@ -107,6 +102,16 @@ class MainWindow(tk.Tk):
             # Дополнительные действия по обновлению, если необходимо
         except requests.RequestException as e:
             messagebox.showerror("Ошибка", f"Не удалось загрузить обновление: {e}")
+
+    def load_file(self):
+        file_path = filedialog.askopenfilename(filetypes=[("Текстовые файлы", "*.txt")])
+        if file_path:
+            with open(file_path, "r", encoding='utf-8') as file:
+                text = file.read()
+            self.count_characters(refresh=text)
+
+    def run(self):
+        self.mainloop()
 
     @staticmethod
     def show_info_message(message):
@@ -135,7 +140,7 @@ class MainWindow(tk.Tk):
     @staticmethod
     def show_about_dialog():
         messagebox.showinfo("О программе",
-                            f"График функции y = ax^3\nВерсия: {self.current_version}\nАвтор: Илья\nКомпания: ILYA Company")
+                            f"График функции y = ax^3\nВерсия: 1.0.0\nАвтор: Илья\nКомпания: ILYA Company")
 
     def clear_graphs(self):
         for line in self.axes.lines:
@@ -217,6 +222,5 @@ class MainWindow(tk.Tk):
         self.geometry(f"+{x}+{y}")
 
 
-if __name__ == "__main__":
-    window = MainWindow()
-    window.mainloop()
+app = MainWindow()
+app.run()
