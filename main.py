@@ -15,7 +15,7 @@ class MainWindow(tk.Tk):  # Inherit from tk.Tk
         super().__init__()
         self.title("График функции y = ax^3")
         self.geometry("663x700")
-        self.version = '1.0.0'
+        self.version = '1.0.1'
 
         # Установка шрифта
         self.option_add("*Font", "Calibri 12")
